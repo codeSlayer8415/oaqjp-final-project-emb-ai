@@ -18,6 +18,16 @@ def emotion_detector(text_to_analyze):
     myobj = { "raw_document": { "text": text_to_analyze } }
     # Sending post request to AI model
     response = requests.post(url, json = myobj, headers = header)
+    if response.status_code == 400:
+        emotions = {
+        'anger': None,
+        'disgust': None,
+        'fear': None,
+        'joy': None,
+        'sadness': None,
+        'dominant_emotion': None
+        }
+        return emotions
     # converting response.text to dict format
     res = json.loads(response.text)
     # the following returns list of emotions in dictionary format

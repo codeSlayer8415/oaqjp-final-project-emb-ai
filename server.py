@@ -9,7 +9,12 @@ app = Flask("This is an Emotion detection application")
 @app.route("/emotionDetector")
 def emotion():
     text_to_analyze = request.args.get('textToAnalyze')
+    # if text_to_analyze == "":
+    #     return "Input is blank! Try providing proper input"
     res = emotion_detector(text_to_analyze)
+    if res['dominant_emotion'] == None:
+        return "Invalid text! Please try again"
+    # for 
     message = "For the given statement, the system response is "
     for emotion, score in res.items():
         message = message + emotion + ": " + str(score) + ", "
